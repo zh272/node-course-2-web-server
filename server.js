@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+// if process.env.PORT doesn't exist, use 3000 for localhost
+const port = process.env.PORT || 3000; 
 var app = express();
 
 // let hbs add support for Partials (reusable chunks of code)
@@ -24,10 +26,10 @@ app.use((req, res, next) => {
     next(); // application continues only when next() is called
 });
 
-// register a maintenance middleware for express
-app.use((req, res, next) => {
-    res.render('maintenance.hbs');
-});
+// // register a maintenance middleware for express
+// app.use((req, res, next) => {
+//     res.render('maintenance.hbs');
+// });
 
 // setup static directory, without providing custom route for
 // every single file.
@@ -78,6 +80,6 @@ app.get('/bad', (req, res) => {
 });
 
 // listen to requests
-app.listen(3000,() => {
-    console.log('Server is up on port 3000');
+app.listen(port,() => {
+    console.log(`Server is up on port ${port}`);
 }); // common port for developping locally
